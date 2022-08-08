@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tour"
+    }
+  },
+  "defaultProject": "tour",
+  "cli": {
+    "analytics": "701dc9f7-cea3-479c-8389-886b905fc0b7"
+  }
 }
