@@ -17,6 +17,10 @@ export class HeroService {
     private httpClient: HttpClient
   ) { }
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+  };
+
   getHeroes(): Observable<Hero[]> {
     //const heroes = of(HEROES);
     // this.log(`fetched heroes`);
@@ -46,5 +50,18 @@ export class HeroService {
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
+  }
+  updateHero(hero: Hero): Observable<any> {
+    return this.httpClient.put(this.heroesUrl,hero,this.httpOptions).pipe(
+      tap(_ => this.log(`updated hero id=${hero.id}`)),
+      catchError(this.handleError<any>('updateHero'))
+    );
+  }
+  addHero(hero: Hero): Observable<Hero>{
+    return this.httpClient.post<Hero>(this.heroesUrl, hero, this.httpOptions)
+    .pipe(
+      tap((newHero: Hero) => this.log(`Added hero id=${newHero.id}`)),
+      catchError(this.handleError<Hero>('addHero'))
+    );
   }
 }
